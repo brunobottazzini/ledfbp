@@ -1,0 +1,10 @@
+#                                                               FBP File Editor - Tester
+#
+# Author: Bruno Bottazzini
+#
+btn1(gpio/reader:pin=472,edge_falling=true,edge_rising=true,pull=up,active_low=true) OUT -> RED led(calamari/rgb-led:red_pin=338,green_pin=339,blue_pin=464)
+btn1 OUT -> IN log(console:prefix="btn1_pressed ")
+btn2(gpio/reader:pin=482,edge_falling=true,edge_rising=true,pull=up,active_low=true) OUT -> GREEN led
+btn2 OUT -> IN log2(console:prefix="btn2_pressed ")
+btn3(gpio/reader:pin=483,edge_falling=true,edge_rising=true,pull=up,active_low=true) OUT -> BLUE led
+btn3 OUT -> IN log3(console:prefix="btn3_pressed ")
