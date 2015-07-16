@@ -21,7 +21,7 @@ there_is_a_winner OUT -> IN cheer_output(gpio/writer:pin=464)
 there_is_a_winner OUT -> IN not(boolean/not) OUT -> RESET11 cheer_timeout(timer:interval=3000)
 
 cheer_timeout OUT -> RESET red_score
-cheer_timeout OUT -> RESET yellow_score
+cheer_timeout OUT -> RESET yellow_scoreEDEDEDE
 
 reset(gpio/reader:pin=482,edge_falling=true,edge_rising=true,pull=up,active_low=true) OUT -> RESET red_score
 reset OUT -> RESET yellow_score
