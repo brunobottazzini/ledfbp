@@ -1,0 +1,27 @@
+#                                                               FBP File Editor
+#
+# Author:
+#
+red_goal(gpio/reader:pin=483,edge_falling=true,edge_rising=true,pull=up,active_low=true) OUT -> PULSE_IF_TRUE red_toggle(converter/boolean-to-empty) OUT -> INC red_score(int/accumulator) OUT -> VALUE red_output(calamari/7seg)
+
+red_score OUT -> IN0 red_won(int/greater-or-equal)
+win_score(constant/int:value=5) OUT -> IN1 red_won
+
+yellow_goal(gpio/reader:pin=472,edge_falling=true,edge_rising=true,pull=up,active_low=true) OUT -> PULSE_IF_TRUE yellow_toggle(converter/boolean-to-empty) OUT -> INC yellow_score(int/accumulator) OUT -> VALUE yellow_output(calamari/7seg)
+
+yellow_score OUT -> IN0 yellow_won(int/greater-or-equal)
+win_score OUT -> IN1 yellow_won
+
+red_won OUT -> IN red_won_output(gpio/writer:pin=338)
+yellow_won OUT -> IN yellow_won_output(gpio/writer:pin=339)
+
+red_won OUT -> IN0 there_is_a_winner(boolean/or)
+yellow_won OUT -> IN1 there_is_a_winner
+there_is_a_winner OUT -> IN cheer_output(gpio/writer:pin=464)
+there_is_a_winner OUT -> IN not(boolean/not) OUT -> RESET11 cheer_timeout(timer:interval=3000)
+
+cheer_timeout OUT -> RESET red_score
+cheer_timeout OUT -> RESET yellow_score
+
+reset(gpio/reader:pin=482,edge_falling=true,edge_rising=true,pull=up,active_low=true) OUT -> RESET red_score
+reset OUT -> RESET yellow_score
